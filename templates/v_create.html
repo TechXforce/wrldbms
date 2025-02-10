@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %} 
+VACANCIES/CREATE
+{% endblock title %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                <br>
+                <h4>ADD ADVERTISEMENT</h4>
+                <a href="/vacancies" class="btn btn-warning btn-sm" style="float: right;">VIEW ADVERTS</a>
+            </div>
+            <div class="card-body">
+
+                {% with messages=get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                {% for category, message in messages %}
+            
+                <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+                  {{message}}
+            
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+            
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+
+                <div class="col-md-8">
+
+                <form action="/v_create" method="post">
+                    <div class="mb-3">
+                        <label>Advert Title</label>
+                        <input type="text" name="adtitle" required class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label>Small Description</label>
+                        <textarea name="small_description"required class="form-control" rows="3"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label>Long Description</label>
+                        <textarea name="long_description"required class="form-control mySummernote" rows="3"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label>Upload Ad Image</label>
+                        <input type="file" name="image" class="form-control">
+                    </div>
+
+                    <h5>SEO Tags</h5>
+                    <div class="mb-3">
+                        <label>Status (checked=hidden,un-checked=visible) </label>
+                        <br/>
+                        <input type="checkbox" name="status" value="1">
+                        <label for="status">Hide Advert</label>
+                    </div>
+
+                    <div class="mb-3 text-end">
+                        <button type="submit" name="addAdvert" class="btn btn-primary btn-sm">+ADD ADVERT</button>
+                    </div>
+
+                </form>
+
+            </div>
+
+                <div class="col-md-4">
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock body %}

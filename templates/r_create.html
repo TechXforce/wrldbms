@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %} 
+REPORT/CREATE
+{% endblock title %}
+
+{% block body %}
+
+<div class="container mt-1">
+
+<div class="row">
+
+<div class="col-md-8">
+
+    <br>
+
+    {% with messages=get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+
+    <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+      {{message}}
+
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <form action="{{ url_for('r_create_post') }}" method="post" class="jumbotron bg-light" enctype="multipart/form-data">
+
+        <h4 class="text-first bg-light text-dark">REPORT</h4>
+        <br>
+
+        <div class="mb-3">
+            <label>File Title</label>
+            <input type="text" name="title" placeholder="Report title" required class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="pdfFile">Choose PDF to upload:</label>
+            <input type="file" name="report" class="form-control" accept=".pdf" required>
+        <br/>
+
+        <div class="form-group">
+            <input type="time" class="form-control" name="time" placeholder="Time" required>
+        </div>
+            
+        <div class="form-group">
+            <input type="date" class="form-control" name="date" placeholder="Date" required>
+        </div>
+
+    <button type="submit" class="btn btn-primary btn-sm"> UPLOAD REPORT</button>
+    </form>
+
+</div>
+
+<div class="col-md-4">
+</div>
+
+</div>
+</div>
+
+{% endblock body %}

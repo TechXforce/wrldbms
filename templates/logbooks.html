@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %} 
+LOGBOOKS
+{% endblock title %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                <br>
+
+                <h4>LOGBOOKS</h4>
+                <a href="/lb_create" class="btn btn-primary btn-sm" style="float: right;">+ADD LOGBOOK</a>
+            </div>
+            <div class="card-body">
+
+                {% with messages=get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                {% for category, message in messages %}
+            
+                <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+                  {{message}}
+            
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+            
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+
+                <table id="myTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Title</th>
+                            <th scope="col">Logbook Name</th>
+                            <th scope="col">Download</th>
+                            <th scope="col">Uploaded Time</th>
+                            <th scope="col">Uploaded Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for logbook in logbooks %}
+                        <tr>
+                            <th scope="row">{{ logbook.title }}</th>
+                            <th scope="row">{{ logbook.filename.decode('utf-8') }}</th>
+                            <td><a href="{{ url_for('get_logbook', filename=logbook.filename.decode('utf-8')) }}">Download</a></td>
+                            <td>{{ logbook.uploaded_time }}</td>
+                            <td>{{ logbook.uploaded_date }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}
